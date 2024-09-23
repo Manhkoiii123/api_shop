@@ -46,7 +46,7 @@ const updateReview = (id, data) => {
       checkReview.star = data.star || checkReview.star;
 
       const saveReview = await checkReview.save();
-     
+
       resolve({
         status: CONFIG_MESSAGE_ERRORS.ACTION_SUCCESS.status,
         message: "Updated review success",
@@ -155,7 +155,7 @@ const deleteReviewMine = (reviewId, userId) => {
         });
       }
 
-      await Review.findByIdAndDelete(id);
+      await Review.findByIdAndDelete(reviewId);
       resolve({
         status: CONFIG_MESSAGE_ERRORS.ACTION_SUCCESS.status,
         message: "Deleted review success",
@@ -279,9 +279,9 @@ const getAllReview = (params) => {
         star: 1,
         user: 1,
         product: 1,
-        updatedAt: 1
+        updatedAt: 1,
       };
-  
+
       if (page === -1 && limit === -1) {
         const allReview = await Review.find(query)
           .sort(sortOptions)
