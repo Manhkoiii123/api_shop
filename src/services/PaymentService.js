@@ -107,10 +107,11 @@ const getVNPayIpnPaymentVNPay = (data) => {
       let hmac = crypto.createHmac("sha512", secretKey);
       let signed = hmac.update(new Buffer(signData, "utf-8")).digest("hex");
 
+      const existingOrder = await Order.findById(orderId);
+
       if (secureHash === signed) {
         let orderId = vnp_Params["vnp_TxnRef"];
         let rspCode = vnp_Params["vnp_ResponseCode"];
-        const existingOrder = await Order.findById(orderId);
 
         if (!existingOrder) {
           reject({

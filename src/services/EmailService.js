@@ -30,9 +30,9 @@ const sendEmailCreateOrder = async (email, orderItems) => {
   await transporter.sendMail({
     from: process.env.MAIL_ACCOUNT, // sender address
     to: email, // list of receivers
-    subject: "Bạn đã đặt hàng tại shop LẬP trình thật dễ", // Subject line
+    subject: "Bạn đã đặt hàng tại shop ManhTD", // Subject line
     text: "Hello world?", // plain text body
-    html: `<div><b>Bạn đã đặt hàng thành công tại shop Lập trình thật dễ</b></div> ${listItem}`,
+    html: `<div><b>Bạn đã đặt hàng thành công tại shop ManhTD</b></div> ${listItem}`,
     attachments: attachImage,
   });
 };
@@ -52,7 +52,6 @@ const sendEmailForgotPassword = async (
     },
   });
   transporter.use("compile", inlineBase64({ cidPrefix: "somePrefix_" }));
-
 
   await transporter.sendMail({
     from: process.env.MAIL_ACCOUNT, // sender address

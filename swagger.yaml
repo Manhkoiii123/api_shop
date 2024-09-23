@@ -2,9 +2,9 @@ openapi: 3.0.3
 info:
   title: Swagger API Course FE
   description: |-
-    This is a list api of course FE
+    This is a list api
   contact:
-    email: lttd0204@gmail.com
+    email: Manhtranduc0202@gmail.com
   version: 1.0.11
 servers:
   - url: http://localhost:3001
@@ -38,7 +38,7 @@ paths:
                   example: admin@gmail.com
                 password:
                   type: string
-                  example: 123456789Kha@
+                  example: Manhkoiii123@
               required:
                 - email
                 - password
@@ -111,7 +111,7 @@ paths:
                   example: admin@gmail.com
                 password:
                   type: string
-                  example: 123456789Kha@
+                  example: Manhkoiii123@
               required:
                 - email
                 - password

@@ -128,6 +128,7 @@ const createOrder = (newOrder) => {
           deviceTokens,
         });
         // await EmailService.sendEmailCreateOrder(email, orderItems);
+        // ddddsryrtytrtyrtyet
 
         if (createdOrder) {
           resolve({
@@ -669,6 +670,10 @@ const getDetailsOrderOfMe = (userId, orderId) => {
             path: "orderItems.product",
             select: "countInStock slug", // Select only the 'slug' field of the product
             model: "Product", // Specify the model to prevent path collision
+          },
+          {
+            path: "paymentMethod",
+            select: "name type",
           },
         ]);
 
