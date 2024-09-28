@@ -767,7 +767,7 @@ const getAllProductPublic = (params) => {
           data: {
             products: allProduct,
             totalPage: 1,
-            totalCount: totalCount,
+            totalCount: allProduct.length,
           },
         });
         return;

@@ -12,6 +12,7 @@ const PaymentTypeRouter = require("./PaymentTypeRouter");
 const ReportRouter = require("./ReportRouter");
 const NotificationRouter = require("./NotificationRouter");
 const CommentRouter = require("./CommentRouter");
+const CartRouter = require("./CartRouter");
 
 const routes = (app) => {
   app.use("/api/auth", AuthRouter);
@@ -28,6 +29,7 @@ const routes = (app) => {
   app.use("/api/report", ReportRouter);
   app.use("/api/notifications", NotificationRouter);
   app.use("/api/comments", CommentRouter);
+  app.use("/api/cart", CartRouter);
 };
 
 module.exports = routes;

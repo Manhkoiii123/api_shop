@@ -21,7 +21,7 @@ const pushMessageToFirebase = async (data) => {
 
   await getMessaging().sendMulticast(message);
 };
-
+//lấy ra các id của người dùng nhận thông báo và các id của user là admin để gửi thông báo
 const getUserAndAdminTokens = async (userId) => {
   try {
     const currentUser = await User.findById(userId);
@@ -36,8 +36,14 @@ const getUserAndAdminTokens = async (userId) => {
       adminDeviceTokens?.push?.apply(adminDeviceTokens, admin.deviceTokens);
       adminIds.push(admin._id?.toString());
     });
-    const uniqueIdUser = uniqueValuesArr([currentUser?._id?.toString(),...adminIds]);
-    const uniqueDeviceToken = uniqueValuesArr([...currentUser?.deviceTokens,...adminDeviceTokens]);
+    const uniqueIdUser = uniqueValuesArr([
+      currentUser?._id?.toString(),
+      ...adminIds,
+    ]);
+    const uniqueDeviceToken = uniqueValuesArr([
+      ...currentUser?.deviceTokens,
+      ...adminDeviceTokens,
+    ]);
 
     return { recipientIds: uniqueIdUser, deviceTokens: uniqueDeviceToken };
   } catch (error) {
@@ -157,7 +163,9 @@ const getListNotifications = (userId, params) => {
           .lean();
 
         const modifiedNotifications = allNotification.map((notification) => {
-          const findIsRead = notification?.recipientIds?.find((item) => item?.userId?.toString() === userId)
+          const findIsRead = notification?.recipientIds?.find(
+            (item) => item?.userId?.toString() === userId
+          );
           const { recipientIds, ...rest } = notification;
           return {
             ...rest,
