@@ -127,8 +127,7 @@ const createOrder = (newOrder) => {
           recipientIds,
           deviceTokens,
         });
-        // await EmailService.sendEmailCreateOrder(email, orderItems);
-        // ddddsryrtytrtyrtyet
+        await EmailService.sendEmailCreateOrder(email, orderItems);
 
         if (createdOrder) {
           resolve({
