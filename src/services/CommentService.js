@@ -833,6 +833,7 @@ const getAllCommentPublic = (params) => {
                 id: "$repliesUserInfo._id",
                 firstName: "$repliesUserInfo.firstName",
                 lastName: "$repliesUserInfo.lastName",
+                avatar: "$repliesUserInfo.avatar",
               },
               product: {
                 id: "$repliesProductInfo._id",

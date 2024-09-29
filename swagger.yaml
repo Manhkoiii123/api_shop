@@ -7,7 +7,7 @@ info:
     email: Manhtranduc0202@gmail.com
   version: 1.0.11
 servers:
-  - url: http://localhost:3001
+  - url: https://api-shop-fnnd.onrender.com/
 tags:
   - name: auth
     description: Everything about auth
