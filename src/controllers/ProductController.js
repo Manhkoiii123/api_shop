@@ -24,7 +24,7 @@ const createProduct = async (req, res) => {
         message: `The field ${requiredFields.join(", ")} is required`,
         data: null,
       });
-    } 
+    }
     if (!discountValidation.isValid) {
       return res.status(CONFIG_MESSAGE_ERRORS.INVALID.status).json({
         status: "Error",
@@ -82,7 +82,7 @@ const updateProduct = async (req, res) => {
         message: `The field ${requiredFields.join(", ")} is required`,
         data: null,
       });
-    }  
+    }
     if (!discountValidation.isValid) {
       return res.status(CONFIG_MESSAGE_ERRORS.INVALID.status).json({
         status: "Error",
@@ -128,7 +128,38 @@ const getDetailsProduct = async (req, res) => {
       status: statusMessage,
     });
   } catch (e) {
-    console.log("products", {e})
+    console.log("products", { e });
+    return res.status(CONFIG_MESSAGE_ERRORS.INTERNAL_ERROR.status).json({
+      message: "Internal Server Error",
+      data: null,
+      status: "Error",
+      typeError: CONFIG_MESSAGE_ERRORS.INTERNAL_ERROR.type,
+    });
+  }
+};
+const getDetailsProducts = async (req, res) => {
+  try {
+    const { ids } = req.body; // Lấy mảng ids từ body
+    if (!ids || !Array.isArray(ids) || ids.length === 0) {
+      return res.status(CONFIG_MESSAGE_ERRORS.INVALID.status).json({
+        status: "Error",
+        typeError: CONFIG_MESSAGE_ERRORS.INVALID.type,
+        message: `The field ids is required and must be a non-empty array`,
+      });
+    }
+
+    // Gọi hàm để lấy thông tin sản phẩm
+    const response = await ProductService.getDetailsProducts(ids);
+    const { data, status, typeError, message, statusMessage } = response;
+
+    return res.status(status).json({
+      typeError,
+      data,
+      message,
+      status: statusMessage,
+    });
+  } catch (e) {
+    console.log("Error fetching products:", { e });
     return res.status(CONFIG_MESSAGE_ERRORS.INTERNAL_ERROR.status).json({
       message: "Internal Server Error",
       data: null,
@@ -454,4 +485,5 @@ module.exports = {
   getAllProductLiked,
   getDetailsProductPublicBySlug,
   getListRelatedProductBySlug,
+  getDetailsProducts,
 };

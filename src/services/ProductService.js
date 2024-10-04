@@ -157,6 +157,54 @@ const deleteProduct = (id) => {
     }
   });
 };
+const getDetailsProducts = async (ids) => {
+  try {
+    // Kiểm tra xem ids có phải là một mảng hay không
+    if (!Array.isArray(ids) || ids.length === 0) {
+      return {
+        status: CONFIG_MESSAGE_ERRORS.INVALID.status,
+        message: "Invalid or empty list of IDs",
+        typeError: CONFIG_MESSAGE_ERRORS.INVALID.type,
+        data: null,
+        statusMessage: "Error",
+      };
+    }
+
+    // Tìm các sản phẩm dựa trên ids
+    const products = await Product.find({
+      _id: { $in: ids }, // Sử dụng toán tử $in để tìm sản phẩm với các ID trong mảng
+    });
+
+    // Kiểm tra xem có sản phẩm nào được tìm thấy không
+    if (products.length === 0) {
+      return {
+        status: CONFIG_MESSAGE_ERRORS.INVALID.status,
+        message: "No products found",
+        typeError: CONFIG_MESSAGE_ERRORS.INVALID.type,
+        data: null,
+        statusMessage: "Error",
+      };
+    }
+
+    return {
+      status: CONFIG_MESSAGE_ERRORS.GET_SUCCESS.status,
+      message: "Success",
+      typeError: "",
+      data: products, // Trả về danh sách sản phẩm
+      statusMessage: "Success",
+    };
+  } catch (e) {
+    console.log("🚀 ~ getDetailsProducts ~ e:", e);
+    // Xử lý lỗi và trả về thông báo lỗi
+    return {
+      status: CONFIG_MESSAGE_ERRORS.ERROR.status,
+      message: "An error occurred while retrieving products",
+      typeError: CONFIG_MESSAGE_ERRORS.ERROR.type,
+      data: null,
+      statusMessage: "Error",
+    };
+  }
+};
 
 const deleteManyProduct = (ids) => {
   return new Promise(async (resolve, reject) => {
@@ -1296,4 +1344,5 @@ module.exports = {
   getAllProductLiked,
   getDetailsProductPublicBySlug,
   getListRelatedProductBySlug,
+  getDetailsProducts,
 };
