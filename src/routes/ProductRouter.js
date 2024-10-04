@@ -41,6 +41,7 @@ router.get(
   AuthPermission("", true, true),
   ProductController.getDetailsProductPublic
 );
+router.post("/public/productIds", ProductController.getDetailsProducts);
 
 router.get("/public", ProductController.getAllProductPublic);
 
