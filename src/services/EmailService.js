@@ -2,6 +2,7 @@ const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
 dotenv.config();
 var inlineBase64 = require("nodemailer-plugin-inline-base64");
+const { formatNumberToLocal } = require("../utils");
 
 const sendEmailCreateOrder = async (email, orderItems) => {
   let transporter = nodemailer.createTransport({
@@ -20,7 +21,9 @@ const sendEmailCreateOrder = async (email, orderItems) => {
   orderItems.forEach((order) => {
     listItem += `<div>
     <div>
-      Bạn đã đặt sản phẩm <b>${order.name}</b> với số lượng: <b>${order.amount}</b> và giá là: <b>${order.price} VND</b></div>
+      Bạn đã đặt sản phẩm <b>${order.name}</b> với số lượng: <b>${
+      order.amount
+    }</b> và giá là: <b>${formatNumberToLocal(order.price)} VND</b></div>
       <div>Bên dưới là hình ảnh của sản phẩm</div>
     </div>`;
     attachImage.push({ path: order.image });
